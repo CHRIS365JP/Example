@@ -309,35 +309,70 @@ public class Holiday {
     }
 
     /**
-     * 春分の日を算出
+     * 春分の日を算出<br>
+     * 有効範囲: 1796-2351
      * 
      * @param year 年
      * @return 日数
      */
     private String calcSpringEquinoxDay(Integer year) {
+        return String.valueOf(calcSpringEquinoxDay(year, null, null));
+    }
+    
+    /**
+     * 春分の日を算出<br>
+     * 
+     * @param year 年
+     * @return 日数
+     */
+    private String calcSpringEquinoxDay(Integer year, Double coefficientA, Double coefficientB) {
         // INT((0.242385544201545*A1)-(INT(A1/4)-INT(A1/100)+INT(A1/400))+20.9150411785049)
         // 係数a =  0.242385544201545
         // 係数b = 20.9150411785049
         // 有効範囲: 1796-2351
         double a = 0.242385544201545;
         double b = 20.9150411785049;
+        if(coefficientA != null) {
+            a = coefficientA;
+        }
+        if(coefficientB != null) {
+            b = coefficientB;
+        }
         Integer result = (int) (a * year - (year / 4 - year / 100 + year / 400) + b);
         return String.valueOf(result);
     }
+    
 
+    /**
+     * 秋分の日を算出<br>
+     * 有効範囲: 1604-2230
+     * 
+     * @param year 年
+     * @return 日数
+     */
+    private String calcAutumnalEquinoxDay(Integer year) {
+        return String.valueOf(calcAutumnalEquinoxDay(year, null, null));
+    }
+    
     /**
      * 秋分の日を算出
      * 
      * @param year 年
      * @return 日数
      */
-    private String calcAutumnalEquinoxDay(Integer year) {
+    private String calcAutumnalEquinoxDay(Integer year, Double coefficientA, Double coefficientB) {
         // INT((0.242035499172366*A1)-(INT(A1/4)-INT(A1/100)+INT(A1/400))+24.0227494548387)
         // 係数a =  0.242035499172366
         // 係数b = 24.0227494548387
         // 有効範囲: 1604-2230
         double a = 0.242035499172366;
         double b = 24.0227494548387;
+        if(coefficientA != null) {
+            a = coefficientA;
+        }
+        if(coefficientB != null) {
+            b = coefficientB;
+        }
         Integer result = (int) (a * year - (year / 4 - year / 100 + year / 400) + b);
         return String.valueOf(result);
     }
